@@ -1,0 +1,65 @@
+﻿<Page x:Name="PageGerenciamento" x:Class="DigestingDuck.Pages.Gerenciamento"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DigestingDuck.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="790"
+      Title="Gerenciamento" Loaded="PageGerenciamento_Loaded">
+
+    <Grid Background="#FF293349">
+        <Label Content="Parar quando o Lucro Atingir (STOP WIN):" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <Label Content="Parar quando as Percas Atingir (STOP LOSS):" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <TextBox x:Name="InputLucroAtingir" HorizontalAlignment="Left" Height="23" Margin="254,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputLucroAtingir_TextChanged" Foreground="White"/>
+        <TextBox x:Name="InputPercasAtingir" HorizontalAlignment="Left" Height="23" Margin="254,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputPercasAtingir_TextChanged"/>
+        <ComboBox HorizontalAlignment="Left" Margin="379,15,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False" Foreground="White">
+            <ComboBoxItem Content="Valor"/>
+            <ComboBoxItem Content="Percentual"/>
+        </ComboBox>
+        <Label Content="Deixar Zero caso não queira gerenciamento de Lucro ou Percas" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#DDFFFFFF"/>
+        <ComboBox HorizontalAlignment="Left" Margin="379,43,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False" Foreground="White">
+            <ComboBoxItem Content="Valor"/>
+            <ComboBoxItem Content="Percentual"/>
+        </ComboBox>
+        <Label Content="Entrada:" HorizontalAlignment="Left" Margin="51,100,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <TextBox x:Name="InputValorEntrada" HorizontalAlignment="Left" Height="23" Margin="110,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputValorEntrada_TextChanged"/>
+        <Label Content="Configure VALOR para fixo ou PERCENTUAL para aplicar sobre o Saldo da Conta" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Nível de Soros:" HorizontalAlignment="Left" Margin="16,164,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+        <TextBox x:Name="InputSorosNivel" HorizontalAlignment="Left" Height="23" Margin="110,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputSorosNivel_TextChanged"/>
+        <GroupBox Header="Martingale" HorizontalAlignment="Left" Height="249" Margin="10,191,0,0" VerticalAlignment="Top" Width="521">
+            <Grid Margin="0,0,-2,0">
+                <RadioButton Content="Fator de Multiplicação" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False" Foreground="White"/>
+                <RadioButton Content="Fixo" HorizontalAlignment="Left" Margin="78,102,0,0" VerticalAlignment="Top" IsEnabled="False" Foreground="White"/>
+                <Label Content="Fator:" HorizontalAlignment="Left" Margin="78,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.036,0.515" Foreground="#DDFFFFFF"/>
+                <TextBox x:Name="InputMtgFatorEscala" HorizontalAlignment="Left" Height="23" Margin="122,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorEscala_TextChanged"/>
+                <Label Content="Máximo de Níveis:" HorizontalAlignment="Left" Margin="11,61,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <TextBox x:Name="InputMtgFatorNiveis" HorizontalAlignment="Left" Height="23" Margin="122,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorNiveis_TextChanged"/>
+                <Label Content="01:" HorizontalAlignment="Left" Margin="4,119,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="02:" HorizontalAlignment="Left" Margin="110,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="03:" HorizontalAlignment="Left" Margin="211,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="04:" HorizontalAlignment="Left" Margin="307,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="05:" HorizontalAlignment="Left" Margin="405,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.495,0.5" Foreground="#DDFFFFFF"/>
+                <Label Content="06:" HorizontalAlignment="Left" Margin="4,150,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="07:" HorizontalAlignment="Left" Margin="110,149,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="08:" HorizontalAlignment="Left" Margin="211,151,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <Label Content="09:" HorizontalAlignment="Left" Margin="307,149,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+                <TextBox x:Name="inputMtgEntrada01" HorizontalAlignment="Left" Height="23" Margin="30,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada01_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada02" HorizontalAlignment="Left" Height="23" Margin="136,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada02_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada03" HorizontalAlignment="Left" Height="23" Margin="237,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada03_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada04" HorizontalAlignment="Left" Height="23" Margin="333,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada04_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada05" HorizontalAlignment="Left" Height="23" Margin="431,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada05_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada06" HorizontalAlignment="Left" Height="23" Margin="30,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada06_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada07" HorizontalAlignment="Left" Height="23" Margin="136,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada07_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada08" HorizontalAlignment="Left" Height="23" Margin="237,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada08_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada09" HorizontalAlignment="Left" Height="23" Margin="333,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada09_TextChanged"/>
+                <TextBox x:Name="inputMtgEntrada10" HorizontalAlignment="Left" Height="23" Margin="431,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgEntrada10_TextChanged"/>
+                <Label Content="10:" HorizontalAlignment="Left" Margin="405,149,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
+            </Grid>
+        </GroupBox>
+        <ComboBox HorizontalAlignment="Left" Margin="235,102,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+            <ComboBoxItem Content="Valor"/>
+            <ComboBoxItem Content="Percentual"/>
+        </ComboBox>
+    </Grid>
+</Page>

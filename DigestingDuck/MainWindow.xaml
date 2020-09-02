@@ -1,0 +1,1003 @@
+﻿<Window
+        x:Class="DigestingDuck.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigestingDuck"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        mc:Ignorable="d"
+        Title="Digesting Duck - 1.0" Height="800" Width="1085" 
+        WindowStartupLocation="CenterScreen" Closing="Window_Closing" 
+        ResizeMode="CanMinimize" Icon="icon.ico" FontFamily="/DigestingDuck;component/fonts/#Roboto" Foreground="White" AllowsTransparency="True" WindowStyle="None" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="ButtonLaranjaIqOptionStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#BB5C0C"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#F07000"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#DEBFA5"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonVerdeIqOptionStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#309145"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#309145"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#2CAC40"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#2CAC40"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#2C6445"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#2C6445"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonVermelhoIqOptionStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#B2473A"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#B2473A"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#Db4931"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#Db4931"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="#743E41"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#743E41"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#2D374F"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#2D374F"/>
+        <Style x:Key="TabIqOption" TargetType="{x:Type TabControl}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Selected.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Selected.Border}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}" >
+                        <Grid x:Name="templateRoot" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0" Height="469"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,445" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                            <Border x:Name="contentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="0" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local" Margin="0,24,0,0">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="TabStripPlacement" Value="Bottom">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="1"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="2,0,2,2"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Left">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="contentPanel" Value="1"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="2,2,0,2"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Right">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="headerPanel" Value="1"/>
+                                <Setter Property="Grid.Column" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="0,2,2,2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F0F0F0" Offset="0.0"/>
+            <GradientStop Color="#E5E5E5" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
+        <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#ECF4FC" Offset="0.0"/>
+            <GradientStop Color="#DCECFC" Offset="1.0"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#7EB4EA"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Border2" Color="#ACACAC"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Background2" Color="#FFFFFF"/>
+        <Style x:Key="TabItemStyleIqOption" TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="6,2,6,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
+                                <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0"/>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,0,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,0,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="0,-2,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,-2,0"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF191F2D" Offset="0"/>
+            <GradientStop Color="#FF2D374F" Offset="0.46"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF1A2131" Offset="0"/>
+                <GradientStop Color="#FF2D3750" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!--
+        <TabControl HorizontalAlignment="Left" Height="469" Margin="58,245,0,0" VerticalAlignment="Top" Width="547" IsSynchronizedWithCurrentItem="False" Background="Black" Style="{DynamicResource TabIqOption}" Grid.Column="1">
+            <TabItem Header="Corretora" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83" Margin="-2,-2,-23,0" Foreground="White" Background="#FF262C3B" BorderBrush="{x:Null}">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnEntrar" Content="Entrar" HorizontalAlignment="Left" Margin="388,135,0,0" VerticalAlignment="Top" Width="143" Height="38" Click="BtnEntrar_Click" FontFamily="Roboto"
+                            Background="#FFF07000" Foreground="White" Style="{DynamicResource ButtonLaranjaIqOptionStyle}" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
+                    <GroupBox Header="Iq Option" HorizontalAlignment="Left" Height="125" Margin="10,5,0,0" VerticalAlignment="Top" Width="521">
+                        <Grid Height="100" Margin="5,5,5,5" VerticalAlignment="Top">
+                            <Label Content="E-mail:" HorizontalAlignment="Left" Margin="49,11,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Senha:" HorizontalAlignment="Left" Margin="49,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.737,0.577" FontFamily="Roboto"/>
+                            <TextBox x:Name="inputUsuario" HorizontalAlignment="Left" Height="23" Margin="92,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" VerticalContentAlignment="Center"
+                                     BorderBrush="{x:Null}"
+                                     Background="#FFF6f6f6"
+                                     Foreground="DarkGray"
+                                     TextAlignment="Center"/>
+                            <PasswordBox x:Name="inputSenha" HorizontalAlignment="Left" Height="23" Margin="92,43,0,0" VerticalAlignment="Top" Width="259" VerticalContentAlignment="Center" 
+                                     BorderBrush="{x:Null}"
+                                     Background="#FF363C4F"
+                                     Foreground="DarkGray"/>
+                            <CheckBox x:Name="ChkLembrarDados" Content="Lembrar meus dados" HorizontalAlignment="Left" Margin="95,71,0,0" VerticalAlignment="Top" Width="133" Background="#FF1C2030"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button Content="Button" HorizontalAlignment="Left" Height="30" Margin="10,185,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click_3" Visibility="Hidden"/>
+                    <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="226,368,0,0" VerticalAlignment="Top" Width="156" Click="Button_Click_4" FontFamily="/DigestingDuck;component/fonts/#Roboto"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ativos" Margin="-1,-2,-19,3">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="357*"/>
+                    </Grid.ColumnDefinitions>
+                    <TabControl HorizontalAlignment="Left" Height="373" Margin="10,56,0,0" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2">
+                        <TabItem x:Name="ativosTabBinaria" Header="Binárias" Margin="-2,0,0,0">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="69*"/>
+                                    <ColumnDefinition Width="285*"/>
+                                    <ColumnDefinition Width="161*"/>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid 
+                                    x:Name="datagridAtivosBinaria" 
+                                    HorizontalAlignment="Left" Height="262" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" Grid.ColumnSpan="3" SelectionMode="Single" 
+                                    EnableRowVirtualization="False" IsReadOnly="True" 
+                                    MouseDoubleClick="datagridAtivosBinaria_MouseDoubleClick" 
+                                    CanUserAddRows="False" 
+                                    SelectionChanged="datagridAtivosBinaria_SelectionChanged" 
+                                    AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Turbo" Margin="1,0,-5,0">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid 
+                                    x:Name="datagridAtivosTurbo" 
+                                    HorizontalAlignment="Left" Height="288" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="datagridAtivosTurbo_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Digital" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54" Margin="6,0,-6,0">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid 
+                                    x:Name="datagridAtivosDigital" 
+                                    HorizontalAlignment="Left" Height="309" 
+                                    Margin="10,10,0,-35" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" 
+                                    SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="datagridAtivosDigital_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ItemBindingGroup>
+                                        <BindingGroup/>
+                                    </DataGrid.ItemBindingGroup>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <Button x:Name="BtnAtivosAtualizar" Content="Atualizar" Grid.Column="1" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="89" Height="41" IsEnabled="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Gerenciamento" Height="21" VerticalAlignment="Top" Margin="20,-2,-20,0" Background="#FF262C3B" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyleIqOption}">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Parar quando o Lucro Atingir (STOP WIN):" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Parar quando as Percas Atingir (STOP LOSS):" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputLucroAtingir" HorizontalAlignment="Left" Height="23" Margin="254,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputLucroAtingir_TextChanged"/>
+                    <TextBox x:Name="InputPercasAtingir" HorizontalAlignment="Left" Height="23" Margin="254,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputPercasAtingir_TextChanged"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="379,15,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                    <Label Content="Deixar Zero caso não queira gerenciamento de Lucro ou Percas" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="379,43,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                    <Label Content="Entrada:" HorizontalAlignment="Left" Margin="51,100,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputValorEntrada" HorizontalAlignment="Left" Height="23" Margin="110,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputValorEntrada_TextChanged"/>
+                    <Label Content="Configure VALOR para fixo ou PERCENTUAL para aplicar sobre o Saldo da Conta" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Nível de Soros:" HorizontalAlignment="Left" Margin="16,164,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputSorosNivel" HorizontalAlignment="Left" Height="23" Margin="110,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputSorosNivel_TextChanged"/>
+                    <GroupBox Header="Martingale" HorizontalAlignment="Left" Height="215" Margin="10,191,0,0" VerticalAlignment="Top" Width="521">
+                        <Grid Margin="0,0,-2,0">
+                            <RadioButton Content="Fator de Multiplicação" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
+                            <RadioButton Content="Fixo" HorizontalAlignment="Left" Margin="78,102,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Label Content="Fator:" HorizontalAlignment="Left" Margin="78,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.036,0.515"/>
+                            <TextBox x:Name="InputMtgFatorEscala" HorizontalAlignment="Left" Height="23" Margin="122,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorEscala_TextChanged"/>
+                            <Label Content="Máximo de Níveis:" HorizontalAlignment="Left" Margin="11,61,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="InputMtgFatorNiveis" HorizontalAlignment="Left" Height="23" Margin="122,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorNiveis_TextChanged"/>
+                            <Label Content="01:" HorizontalAlignment="Left" Margin="4,119,0,0" VerticalAlignment="Top"/>
+                            <Label Content="02:" HorizontalAlignment="Left" Margin="110,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="03:" HorizontalAlignment="Left" Margin="211,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="04:" HorizontalAlignment="Left" Margin="307,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="05:" HorizontalAlignment="Left" Margin="405,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.495,0.5"/>
+                            <Label Content="06:" HorizontalAlignment="Left" Margin="4,150,0,0" VerticalAlignment="Top"/>
+                            <Label Content="07:" HorizontalAlignment="Left" Margin="110,149,0,0" VerticalAlignment="Top"/>
+                            <Label Content="08:" HorizontalAlignment="Left" Margin="211,151,0,0" VerticalAlignment="Top"/>
+                            <Label Content="09:" HorizontalAlignment="Left" Margin="307,149,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="inputMtgEntrada01" HorizontalAlignment="Left" Height="23" Margin="30,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada01_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada02" HorizontalAlignment="Left" Height="23" Margin="136,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada02_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada03" HorizontalAlignment="Left" Height="23" Margin="237,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada03_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada04" HorizontalAlignment="Left" Height="23" Margin="333,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada04_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada05" HorizontalAlignment="Left" Height="23" Margin="431,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada05_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada06" HorizontalAlignment="Left" Height="23" Margin="30,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada06_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada07" HorizontalAlignment="Left" Height="23" Margin="136,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada07_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada08" HorizontalAlignment="Left" Height="23" Margin="237,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada08_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada09" HorizontalAlignment="Left" Height="23" Margin="333,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada09_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada10" HorizontalAlignment="Left" Height="23" Margin="431,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada10_TextChanged"/>
+                            <Label Content="10:" HorizontalAlignment="Left" Margin="405,149,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </GroupBox>
+                    <ComboBox HorizontalAlignment="Left" Margin="235,102,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Top Traders" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="78" Margin="21,-2,-21,0" Background="#FF262C3B" BorderBrush="{x:Null}" Foreground="White">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="360*"/>
+                        <ColumnDefinition Width="181*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="ID espefico:" HorizontalAlignment="Left" Margin="193,6,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Quantidade:" HorizontalAlignment="Left" Margin="189,32,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputIdEspecifico" HorizontalAlignment="Left" Height="23" Margin="269,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="InputTotalTraders" HorizontalAlignment="Left" Height="23" Margin="269,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <Button x:Name="BtnAdicionarID" Content="Adicionar" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Width="155" Grid.Column="1" Click="BtnAdicionarID_Click" IsEnabled="False"/>
+                    <Button x:Name="BtnAtualizarTraders" Content="Atualizar Traders" HorizontalAlignment="Left" Margin="16,35,0,0" VerticalAlignment="Top" Width="155" Grid.Column="1" IsEnabled="False" Click="BtnAtualizarTraders_Click"/>
+                    <DataGrid x:Name="datagridTradersTop" HorizontalAlignment="Left" Height="203" Margin="10,168,0,0" VerticalAlignment="Top" Width="521" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" EnableColumnVirtualization="True" MouseDoubleClick="datagridTradersTop_MouseDoubleClick" AutoGenerateColumns="False" CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Alvo" Binding="{Binding Alvo}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Posição" Binding="{Binding RankingPosicao}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="País" Binding="{Binding Flag}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Trader" Binding="{Binding UserName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Ganhos" Binding="{Binding RankingValor}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Win" Binding="{Binding Win}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Loss" Binding="{Binding Loss}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Id" Binding="{Binding UserId}" IsReadOnly="True" DisplayIndex="1"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="BtnAlvosTodos" Content="Alvo em Todos" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="100" Height="55" Click="BtnAlvosTodos_Click"/>
+                    <Button x:Name="BtnAlvosLimpar" Content="Limpar Alvos" HorizontalAlignment="Left" Margin="115,376,0,0" VerticalAlignment="Top" Width="100" Height="55" Click="BtnAlvosLimpar_Click"/>
+                    <Label Content="Total de Traders:" HorizontalAlignment="Left" Margin="220,376,0,0" VerticalAlignment="Top"/>
+                    <Label Content="0" HorizontalAlignment="Left" Margin="334,376,0,0" VerticalAlignment="Top"/>
+                    <GroupBox Header="Buscar" HorizontalAlignment="Left" Height="100" Margin="10,63,0,0" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left" Height="76" Margin="10,0,-2,0" VerticalAlignment="Top" Width="501">
+                            <Button x:Name="BtnBuscarTraderTop" Content="Buscar" HorizontalAlignment="Left" Margin="205,39,0,0" VerticalAlignment="Top" Width="75"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="32,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.566,0.595"><Run Text="Id:"/><LineBreak/><Run/></TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,39,0,0" TextWrapping="Wrap" Text="Nome:" VerticalAlignment="Top"/>
+                            <TextBox x:Name="InputBuscarIdTopTraders" HorizontalAlignment="Left" Height="23" Margin="50,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="InputBuscarNomeTopTraders" HorizontalAlignment="Left" Height="23" Margin="50,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="BtnImportarCSV" Content="Importar CSV" Grid.Column="1" HorizontalAlignment="Left" Height="53" Margin="50,376,0,0" VerticalAlignment="Top" Width="121" Click="BtnImportarCSV_Click"/>
+                    <TextBox x:Name="InputDelaySuportado" HorizontalAlignment="Left" Height="23" Margin="108,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputDelaySuportado_TextChanged"/>
+                    <TextBox x:Name="InputValorMinimoCopia" HorizontalAlignment="Left" Height="23" Margin="108,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputValorMinimoCopia_TextChanged"/>
+                    <Label Content="Delay Atraso:" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.149,0.538"/>
+                    <Label Content="Valor Minimo:" HorizontalAlignment="Left" Margin="20,32,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sinais" HorizontalAlignment="Right" Height="22" VerticalAlignment="Top" Width="54" Margin="0,-2,-22,0" Foreground="White" Background="#FF262C3B">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        -->
+
+        <materialDesign:Card
+            Margin="875,492.597,10,224.403"
+            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+            Padding="8">
+            <Grid>
+                <Label x:Name="LblDescCardLoss" Content="Loss do Dia" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <Label x:Name="LblLossQtde" Content="0" HorizontalAlignment="Left" Margin="60,20,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <Label x:Name="LblLossValor" Content="R$ 0,00" HorizontalAlignment="Left" Margin="115,20,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White" RenderTransformOrigin="-0.044,0.607"/>
+            </Grid>
+            <materialDesign:Card.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF191F2D" Offset="0"/>
+                    <GradientStop Color="#FF2D374F" Offset="1"/>
+                </LinearGradientBrush>
+            </materialDesign:Card.Background>
+
+        </materialDesign:Card>
+
+        <materialDesign:Card
+            Margin="875,404.597,10,312.403"
+            Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+            Padding="8">
+            <Grid>
+                <Label x:Name="LblDescCardWin" Content="Win do Dia" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <Label x:Name="LblWinQtde" Content="0" HorizontalAlignment="Left" Margin="60,20,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <Label x:Name="lblWinValor" Content="R$ 0,00" HorizontalAlignment="Left" Margin="115,20,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White" RenderTransformOrigin="-0.044,0.607"/>
+            </Grid>
+            <materialDesign:Card.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF191F2D" Offset="0"/>
+                    <GradientStop Color="#FF2D374F" Offset="1"/>
+                </LinearGradientBrush>
+            </materialDesign:Card.Background>
+
+        </materialDesign:Card>
+
+
+        <!--
+        <TabControl HorizontalAlignment="Left" Height="469" Margin="58,245,0,0" VerticalAlignment="Top" Width="547" IsSynchronizedWithCurrentItem="False" Background="Black" Style="{DynamicResource TabIqOption}" Grid.Column="1">
+            <TabItem Header="Corretora" Height="22" VerticalAlignment="Top" HorizontalAlignment="Left" Width="83" Margin="-2,-2,-23,0" Foreground="White" Background="#FF262C3B" BorderBrush="{x:Null}">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnEntrar" Content="Entrar" HorizontalAlignment="Left" Margin="388,135,0,0" VerticalAlignment="Top" Width="143" Height="38" Click="BtnEntrar_Click" FontFamily="Roboto"
+                            Background="#FFF07000" Foreground="White" Style="{DynamicResource ButtonLaranjaIqOptionStyle}" FontSize="16" FontWeight="Bold" Cursor="Hand"/>
+                    <GroupBox Header="Iq Option" HorizontalAlignment="Left" Height="125" Margin="10,5,0,0" VerticalAlignment="Top" Width="521">
+                        <Grid Height="100" Margin="5,5,5,5" VerticalAlignment="Top">
+                            <Label Content="E-mail:" HorizontalAlignment="Left" Margin="49,11,0,0" VerticalAlignment="Top"/>
+                            <Label Content="Senha:" HorizontalAlignment="Left" Margin="49,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.737,0.577" FontFamily="Roboto"/>
+                            <TextBox x:Name="inputUsuario" HorizontalAlignment="Left" Height="23" Margin="92,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="259" VerticalContentAlignment="Center"
+                                     BorderBrush="{x:Null}"
+                                     Background="#FFF6f6f6"
+                                     Foreground="DarkGray"
+                                     TextAlignment="Center"/>
+                            <PasswordBox x:Name="inputSenha" HorizontalAlignment="Left" Height="23" Margin="92,43,0,0" VerticalAlignment="Top" Width="259" VerticalContentAlignment="Center" 
+                                     BorderBrush="{x:Null}"
+                                     Background="#FF363C4F"
+                                     Foreground="DarkGray"/>
+                            <CheckBox x:Name="ChkLembrarDados" Content="Lembrar meus dados" HorizontalAlignment="Left" Margin="95,71,0,0" VerticalAlignment="Top" Width="133" Background="#FF1C2030"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button Content="Button" HorizontalAlignment="Left" Height="30" Margin="10,185,0,0" VerticalAlignment="Top" Width="60" Click="Button_Click_3" Visibility="Hidden"/>
+                    <Button Content="Button" HorizontalAlignment="Left" Height="32" Margin="226,368,0,0" VerticalAlignment="Top" Width="156" Click="Button_Click_4" FontFamily="/DigestingDuck;component/fonts/#Roboto"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ativos" Margin="-1,-2,-19,3">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="357*"/>
+                    </Grid.ColumnDefinitions>
+                    <TabControl HorizontalAlignment="Left" Height="373" Margin="10,56,0,0" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2">
+                        <TabItem x:Name="ativosTabBinaria" Header="Binárias" Margin="-2,0,0,0">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="69*"/>
+                                    <ColumnDefinition Width="285*"/>
+                                    <ColumnDefinition Width="161*"/>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid 
+                                    x:Name="datagridAtivosBinaria" 
+                                    HorizontalAlignment="Left" Height="262" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" Grid.ColumnSpan="3" SelectionMode="Single" 
+                                    EnableRowVirtualization="False" IsReadOnly="True" 
+                                    MouseDoubleClick="datagridAtivosBinaria_MouseDoubleClick" 
+                                    CanUserAddRows="False" 
+                                    SelectionChanged="datagridAtivosBinaria_SelectionChanged" 
+                                    AutoGenerateColumns="False">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Turbo" Margin="1,0,-5,0">
+                            <Grid Background="#FFE5E5E5">
+                                <DataGrid 
+                                    x:Name="datagridAtivosTurbo" 
+                                    HorizontalAlignment="Left" Height="288" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="datagridAtivosTurbo_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Digital" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54" Margin="6,0,-6,0">
+                            <Grid Background="#FFE5E5E5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <DataGrid 
+                                    x:Name="datagridAtivosDigital" 
+                                    HorizontalAlignment="Left" Height="309" 
+                                    Margin="10,10,0,-35" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" 
+                                    SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="datagridAtivosDigital_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                                        <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                                        <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                                        <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                                    </DataGrid.Columns>
+                                    <DataGrid.ItemBindingGroup>
+                                        <BindingGroup/>
+                                    </DataGrid.ItemBindingGroup>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                    <Button x:Name="BtnAtivosAtualizar" Content="Atualizar" Grid.Column="1" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="89" Height="41" IsEnabled="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Gerenciamento" Height="21" VerticalAlignment="Top" Margin="20,-2,-20,0" Background="#FF262C3B" BorderBrush="{x:Null}" Foreground="White" Style="{DynamicResource TabItemStyleIqOption}">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Parar quando o Lucro Atingir (STOP WIN):" HorizontalAlignment="Left" Margin="10,13,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Parar quando as Percas Atingir (STOP LOSS):" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputLucroAtingir" HorizontalAlignment="Left" Height="23" Margin="254,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputLucroAtingir_TextChanged"/>
+                    <TextBox x:Name="InputPercasAtingir" HorizontalAlignment="Left" Height="23" Margin="254,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputPercasAtingir_TextChanged"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="379,15,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                    <Label Content="Deixar Zero caso não queira gerenciamento de Lucro ou Percas" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="379,43,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                    <Label Content="Entrada:" HorizontalAlignment="Left" Margin="51,100,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputValorEntrada" HorizontalAlignment="Left" Height="23" Margin="110,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputValorEntrada_TextChanged"/>
+                    <Label Content="Configure VALOR para fixo ou PERCENTUAL para aplicar sobre o Saldo da Conta" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <Label Content="Nível de Soros:" HorizontalAlignment="Left" Margin="16,164,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputSorosNivel" HorizontalAlignment="Left" Height="23" Margin="110,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputSorosNivel_TextChanged"/>
+                    <GroupBox Header="Martingale" HorizontalAlignment="Left" Height="215" Margin="10,191,0,0" VerticalAlignment="Top" Width="521">
+                        <Grid Margin="0,0,-2,0">
+                            <RadioButton Content="Fator de Multiplicação" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" IsChecked="True" IsEnabled="False"/>
+                            <RadioButton Content="Fixo" HorizontalAlignment="Left" Margin="78,102,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                            <Label Content="Fator:" HorizontalAlignment="Left" Margin="78,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.036,0.515"/>
+                            <TextBox x:Name="InputMtgFatorEscala" HorizontalAlignment="Left" Height="23" Margin="122,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorEscala_TextChanged"/>
+                            <Label Content="Máximo de Níveis:" HorizontalAlignment="Left" Margin="11,61,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="InputMtgFatorNiveis" HorizontalAlignment="Left" Height="23" Margin="122,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="InputMtgFatorNiveis_TextChanged"/>
+                            <Label Content="01:" HorizontalAlignment="Left" Margin="4,119,0,0" VerticalAlignment="Top"/>
+                            <Label Content="02:" HorizontalAlignment="Left" Margin="110,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="03:" HorizontalAlignment="Left" Margin="211,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="04:" HorizontalAlignment="Left" Margin="307,121,0,0" VerticalAlignment="Top"/>
+                            <Label Content="05:" HorizontalAlignment="Left" Margin="405,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.495,0.5"/>
+                            <Label Content="06:" HorizontalAlignment="Left" Margin="4,150,0,0" VerticalAlignment="Top"/>
+                            <Label Content="07:" HorizontalAlignment="Left" Margin="110,149,0,0" VerticalAlignment="Top"/>
+                            <Label Content="08:" HorizontalAlignment="Left" Margin="211,151,0,0" VerticalAlignment="Top"/>
+                            <Label Content="09:" HorizontalAlignment="Left" Margin="307,149,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="inputMtgEntrada01" HorizontalAlignment="Left" Height="23" Margin="30,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada01_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada02" HorizontalAlignment="Left" Height="23" Margin="136,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada02_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada03" HorizontalAlignment="Left" Height="23" Margin="237,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada03_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada04" HorizontalAlignment="Left" Height="23" Margin="333,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada04_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada05" HorizontalAlignment="Left" Height="23" Margin="431,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada05_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada06" HorizontalAlignment="Left" Height="23" Margin="30,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada06_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada07" HorizontalAlignment="Left" Height="23" Margin="136,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada07_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada08" HorizontalAlignment="Left" Height="23" Margin="237,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada08_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada09" HorizontalAlignment="Left" Height="23" Margin="333,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada09_TextChanged"/>
+                            <TextBox x:Name="inputMtgEntrada10" HorizontalAlignment="Left" Height="23" Margin="431,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False" TextChanged="inputMtgEntrada10_TextChanged"/>
+                            <Label Content="10:" HorizontalAlignment="Left" Margin="405,149,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </GroupBox>
+                    <ComboBox HorizontalAlignment="Left" Margin="235,102,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" IsEnabled="False">
+                        <ComboBoxItem Content="Valor"/>
+                        <ComboBoxItem Content="Percentual"/>
+                    </ComboBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Top Traders" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="78" Margin="21,-2,-21,0" Background="#FF262C3B" BorderBrush="{x:Null}" Foreground="White">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="360*"/>
+                        <ColumnDefinition Width="181*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="ID espefico:" HorizontalAlignment="Left" Margin="193,6,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Quantidade:" HorizontalAlignment="Left" Margin="189,32,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="InputIdEspecifico" HorizontalAlignment="Left" Height="23" Margin="269,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="InputTotalTraders" HorizontalAlignment="Left" Height="23" Margin="269,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="81"  HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="False"/>
+                    <Button x:Name="BtnAdicionarID" Content="Adicionar" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Width="155" Grid.Column="1" Click="BtnAdicionarID_Click" IsEnabled="False"/>
+                    <Button x:Name="BtnAtualizarTraders" Content="Atualizar Traders" HorizontalAlignment="Left" Margin="16,35,0,0" VerticalAlignment="Top" Width="155" Grid.Column="1" IsEnabled="False" Click="BtnAtualizarTraders_Click"/>
+                    <DataGrid x:Name="datagridTradersTop" HorizontalAlignment="Left" Height="203" Margin="10,168,0,0" VerticalAlignment="Top" Width="521" IsReadOnly="True" SelectionMode="Single" CanUserResizeColumns="False" EnableColumnVirtualization="True" MouseDoubleClick="datagridTradersTop_MouseDoubleClick" AutoGenerateColumns="False" CanUserAddRows="False" Grid.ColumnSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Alvo" Binding="{Binding Alvo}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Posição" Binding="{Binding RankingPosicao}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="País" Binding="{Binding Flag}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Trader" Binding="{Binding UserName}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Ganhos" Binding="{Binding RankingValor}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Win" Binding="{Binding Win}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Loss" Binding="{Binding Loss}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Id" Binding="{Binding UserId}" IsReadOnly="True" DisplayIndex="1"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button x:Name="BtnAlvosTodos" Content="Alvo em Todos" HorizontalAlignment="Left" Margin="10,376,0,0" VerticalAlignment="Top" Width="100" Height="55" Click="BtnAlvosTodos_Click"/>
+                    <Button x:Name="BtnAlvosLimpar" Content="Limpar Alvos" HorizontalAlignment="Left" Margin="115,376,0,0" VerticalAlignment="Top" Width="100" Height="55" Click="BtnAlvosLimpar_Click"/>
+                    <Label Content="Total de Traders:" HorizontalAlignment="Left" Margin="220,376,0,0" VerticalAlignment="Top"/>
+                    <Label Content="0" HorizontalAlignment="Left" Margin="334,376,0,0" VerticalAlignment="Top"/>
+                    <GroupBox Header="Buscar" HorizontalAlignment="Left" Height="100" Margin="10,63,0,0" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2">
+                        <Grid HorizontalAlignment="Left" Height="76" Margin="10,0,-2,0" VerticalAlignment="Top" Width="501">
+                            <Button x:Name="BtnBuscarTraderTop" Content="Buscar" HorizontalAlignment="Left" Margin="205,39,0,0" VerticalAlignment="Top" Width="75"/>
+                            <TextBlock HorizontalAlignment="Left" Margin="32,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.566,0.595"><Run Text="Id:"/><LineBreak/><Run/></TextBlock>
+                            <TextBlock HorizontalAlignment="Left" Margin="10,39,0,0" TextWrapping="Wrap" Text="Nome:" VerticalAlignment="Top"/>
+                            <TextBox x:Name="InputBuscarIdTopTraders" HorizontalAlignment="Left" Height="23" Margin="50,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="InputBuscarNomeTopTraders" HorizontalAlignment="Left" Height="23" Margin="50,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" VerticalContentAlignment="Center"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="BtnImportarCSV" Content="Importar CSV" Grid.Column="1" HorizontalAlignment="Left" Height="53" Margin="50,376,0,0" VerticalAlignment="Top" Width="121" Click="BtnImportarCSV_Click"/>
+                    <TextBox x:Name="InputDelaySuportado" HorizontalAlignment="Left" Height="23" Margin="108,7,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputDelaySuportado_TextChanged"/>
+                    <TextBox x:Name="InputValorMinimoCopia" HorizontalAlignment="Left" Height="23" Margin="108,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="76" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" TextChanged="InputValorMinimoCopia_TextChanged"/>
+                    <Label Content="Delay Atraso:" HorizontalAlignment="Left" Margin="23,6,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.149,0.538"/>
+                    <Label Content="Valor Minimo:" HorizontalAlignment="Left" Margin="20,32,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sinais" HorizontalAlignment="Right" Height="22" VerticalAlignment="Top" Width="54" Margin="0,-2,-22,0" Foreground="White" Background="#FF262C3B">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        -->
+        <GroupBox x:Name="GrpSituacao" Header="Situação" HorizontalAlignment="Left" Height="65" Margin="875,89.403,0,0" VerticalAlignment="Top" Width="200" IsEnabled="False">
+            <Label x:Name="LblSituacao" Content="Desconectado" HorizontalAlignment="Center" Margin="0,0,-2,0" VerticalAlignment="Bottom" Height="42" Width="190" FontSize="16" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFC6566"/>
+        </GroupBox>
+        <GroupBox x:Name="GrpAmbiente" Header="Ambiente da Conta" HorizontalAlignment="Left" Height="92.194" Margin="875,159.403,0,0" VerticalAlignment="Top" Width="200" IsEnabled="False" FontWeight="Bold">
+            <Grid>
+                <RadioButton Content="Treinamento" Height="17" Margin="0,0,88,0" Checked="RadioButtonAmbiente_Checked" FontWeight="Normal" Foreground="White"/>
+                <RadioButton Content="Real"  Height="18" Margin="97,12,10,12" HorizontalAlignment="Center" Checked="RadioButtonAmbiente_Checked" FontWeight="Normal" Foreground="White"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="GrpSaldoConta" Header="Saldos" HorizontalAlignment="Left" Height="129" Margin="875,256.597,0,0" VerticalAlignment="Top" Width="200" FontWeight="Bold" FontFamily="/DigestingDuck;component/fonts/#Roboto">
+            <Grid HorizontalAlignment="Left" Height="78" VerticalAlignment="Top" Width="190" Margin="0,0,-2,0">
+                <Label x:Name="LblSaldoAtual" Content="0.00" HorizontalAlignment="Right" Margin="0,-2,0,45" VerticalAlignment="Center" Height="35" Width="111" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Normal" Foreground="White"/>
+                <Label Content="Atual:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,7,0,0" Foreground="White"/>
+                <Label Content="Inicial:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,47,0,0" Foreground="White"/>
+                <Label x:Name="LblSaldoInicial" Content="0.00" HorizontalAlignment="Right" Margin="0,38,0,5" VerticalAlignment="Center" Height="35" Width="111" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontWeight="Normal" Foreground="White"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Horário de Trader" HorizontalAlignment="Left" Height="95" Margin="875,580.597,0,0" VerticalAlignment="Top" Width="200" FontFamily="/DigestingDuck;component/fonts/#Roboto" FontWeight="Bold">
+            <Grid HorizontalAlignment="Center" Height="75" Margin="0,0,-2,0" VerticalAlignment="Top" Width="182">
+                <Label x:Name="lblHorarioInicio" Content="Início:" HorizontalAlignment="Left" Margin="36,13,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <Label x:Name="lblHorarioFim" Content="Fim:" HorizontalAlignment="Left" Margin="45,41,0,0" VerticalAlignment="Top" FontWeight="Normal" Foreground="White"/>
+                <TextBox x:Name="inputHorarioInicio" HorizontalAlignment="Left" Height="23" Margin="79,14,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Width="59" VerticalContentAlignment="Center" IsEnabled="False" FontWeight="Normal"/>
+                <TextBox x:Name="inputHorarioFim" HorizontalAlignment="Left" Height="23" Margin="79,42,0,0" TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Top" Width="59" VerticalContentAlignment="Center" IsEnabled="False" FontWeight="Normal"/>
+            </Grid>
+        </GroupBox>
+        <Button x:Name="BtnIniciar" Content="Iniciar" HorizontalAlignment="Left" Margin="875,685,0,0" VerticalAlignment="Top" Width="200" Height="50" Click="BtnIniciar_Click" IsEnabled="False" FontFamily="/DigestingDuck;component/fonts/#Roboto" Background="#FF2CAC40" Foreground="White" BorderBrush="#FF2CAC40" Style="{DynamicResource ButtonVerdeIqOptionStyle}" Cursor="Hand"/>
+        <Button x:Name="BtnParar" Content="Parar" HorizontalAlignment="Left" Margin="875,740,0,0" VerticalAlignment="Top" Width="200" Height="50" IsEnabled="False" Click="BtnParar_Click" FontFamily="/DigestingDuck;component/fonts/#Roboto" Style="{DynamicResource ButtonVermelhoIqOptionStyle}" Cursor="Hand"/>
+        <TextBox x:Name="logTexto" HorizontalAlignment="Left" Height="209.403" Margin="85,580.597,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="785" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" TextChanged="LogTexto_TextChanged"/>
+        <Border
+            Height="100"
+            Margin="0,98,273,0"
+            VerticalAlignment="Top"
+            CornerRadius="50" RenderTransformOrigin="0.51,0.467" HorizontalAlignment="Right" Width="100"/>
+        <materialDesign:ColorZone
+  Mode="PrimaryMid"
+  Padding="16" Background="#FF2D3750" Height="72">
+            <DockPanel>
+                <Label VerticalAlignment="Center" Foreground="#DDFFFFFF" FontSize="25" FontWeight="Bold">Digesting Duck</Label>
+                <ToggleButton
+                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                        VerticalAlignment="Center"
+                        ToolTip="Falta Criar as opções de Alertas"
+                        IsChecked="True"
+                        DockPanel.Dock="Right" Background="Transparent" Foreground="White">
+                    <materialDesign:PackIcon
+                        Kind="Notifications"
+                        Foreground="White"/>
+                </ToggleButton>
+
+            </DockPanel>
+        </materialDesign:ColorZone>
+        <Separator HorizontalAlignment="Left" Height="12" Margin="792,23,0,0" VerticalAlignment="Top" Width="27">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
+        <materialDesign:Chip 
+            x:Name="UserChip"
+            Content="..."
+            IsDeletable="True"
+            DeleteClick="UserChip_DeleteClick"
+            ToolTip="Clique para sair"
+            DeleteToolTip="Sair" 
+            Margin="811,19.65,0,748.35" Width="264" IconBackground="#FFEBEDF4" Background="#FF1C2435" Height="Auto">
+            <materialDesign:Chip.Icon>
+                <Image x:Name="ChipImage"/>
+            </materialDesign:Chip.Icon>
+        </materialDesign:Chip>
+        <materialDesign:Card
+          Background="#FF2D3750"
+          Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+          Padding="8"
+          UniformCornerRadius="0" Margin="0,72,1005,0">
+
+        </materialDesign:Card>
+
+        <Button x:Name="BtnCorretora"
+            Content="{materialDesign:PackIcon Kind=LanConnect, Size=30}"
+            ToolTip="Corretora" Margin="0,77,1005,678" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnCorretora_Click"/>
+        <Button x:Name="BtnPortifolio" IsEnabled="true"
+            Content="{materialDesign:PackIcon Kind=Briefcase, Size=30}"
+            ToolTip="Portifolio" Margin="0,127,1005,628" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnPortifolio_Click"/>
+        <Button x:Name="BtnDashboard" IsEnabled="true"
+            Content="{materialDesign:PackIcon Kind=DesktopMacDashboard, Size=30}"
+            ToolTip="Dashboard" Margin="0,177,1005,578" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnDashboard_Click"/>
+        <Button x:Name="BtnAtivos"
+            Content="{materialDesign:PackIcon Kind=Poll, Size=30}"
+            ToolTip="Ativos" Margin="0,227,1005,528" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnAtivos_Click"/>
+        <Button x:Name="BtnGerenciamento"
+            Content="{materialDesign:PackIcon Kind=Money, Size=30}"
+            ToolTip="Gerenciamento" Margin="0,277,1005,478" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnGerenciamento_Click"/>
+        <Button x:Name="BtnTopTraders"
+            Content="{materialDesign:PackIcon Kind=MedalOutline, Size=30}"
+            ToolTip="Top Traders" Margin="0,322,1005,433" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnTopTraders_Click"/>
+        <Button x:Name="BtnSinais" IsEnabled="false"
+            Content="{materialDesign:PackIcon Kind=Signal, Size=30}"
+            ToolTip="Sinais" Margin="0,372,1005,383" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnSinais_Click"/>
+        <Button x:Name="BtnAlerts" IsEnabled="false"
+            Content="{materialDesign:PackIcon Kind=Bell, Size=30}"
+            ToolTip="Alertas" Margin="0,422,1005,333" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnAlerts_Click"/>
+        <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Margin="80,72,215,224" Height="500"/>
+        <MediaElement x:Name="SoundDealLoose" LoadedBehavior="Manual" HorizontalAlignment="Left" Height="20" Margin="0,599,-16,0" VerticalAlignment="Top" Width="80"/>
+        <MediaElement x:Name="SoundDealLooseNotification" LoadedBehavior="Manual" HorizontalAlignment="Left" Height="20" Margin="0,599,-16,0" VerticalAlignment="Top" Width="80"/>
+        <MediaElement x:Name="SoundDealWin" LoadedBehavior="Manual" HorizontalAlignment="Left" Height="20" Margin="0,599,-16,0" VerticalAlignment="Top" Width="80"/>
+        <MediaElement x:Name="SoundMakeDeal" LoadedBehavior="Manual" HorizontalAlignment="Left" Height="20" Margin="0,599,-16,0" VerticalAlignment="Top" Width="80"/>
+    </Grid>
+
+</Window>
