@@ -11,7 +11,7 @@ using IqOptionApiDotNet.Models.DigitalOptions;
 
 using Realms.Exceptions;
 
-namespace DigestingDuck
+namespace DigestingDuck.Tasks
 {
     public class Subscribes : Runner
     {

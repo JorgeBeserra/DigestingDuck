@@ -401,18 +401,18 @@
     <Compile Include="IRunner.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="ChangeBalanceDemo.cs" />
-    <Compile Include="models\Ativos.cs" />
-    <Compile Include="models\AtivosCategorias.cs" />
-    <Compile Include="models\AtivosStatus.cs" />
-    <Compile Include="models\SinaisListas.cs" />
-    <Compile Include="models\SinaisSinais.cs" />
-    <Compile Include="models\Traders.cs" />
-    <Compile Include="models\TradersAlvos.cs" />
-    <Compile Include="models\TradersCopias.cs" />
-    <Compile Include="models\Usuarios.cs" />
-    <Compile Include="models\UsuariosConfiguracao.cs" />
-    <Compile Include="models\Configuracao.cs" />
-    <Compile Include="models\UsuariosSaldos.cs" />
+    <Compile Include="Models\Ativos.cs" />
+    <Compile Include="Models\AtivosCategorias.cs" />
+    <Compile Include="Models\AtivosStatus.cs" />
+    <Compile Include="Models\SinaisListas.cs" />
+    <Compile Include="Models\SinaisSinais.cs" />
+    <Compile Include="Models\Traders.cs" />
+    <Compile Include="Models\TradersAlvos.cs" />
+    <Compile Include="Models\TradersCopias.cs" />
+    <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\UsuariosConfiguracao.cs" />
+    <Compile Include="Models\Configuracao.cs" />
+    <Compile Include="Models\UsuariosSaldos.cs" />
     <Compile Include="EntradaDigital.cs" />
     <Compile Include="Pages\Alertas.xaml.cs">
       <DependentUpon>Alertas.xaml</DependentUpon>
@@ -441,7 +441,7 @@
     <Compile Include="Pages\TopTraders.xaml.cs">
       <DependentUpon>TopTraders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Subscribes.cs" />
+    <Compile Include="Tasks\Subscribes.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>

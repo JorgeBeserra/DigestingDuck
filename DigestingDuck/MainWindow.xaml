@@ -987,10 +987,10 @@
         <Button x:Name="BtnTopTraders"
             Content="{materialDesign:PackIcon Kind=MedalOutline, Size=30}"
             ToolTip="Top Traders" Margin="0,322,1005,433" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnTopTraders_Click"/>
-        <Button x:Name="BtnSinais" IsEnabled="false"
+        <Button x:Name="BtnSinais" IsEnabled="True"
             Content="{materialDesign:PackIcon Kind=Signal, Size=30}"
             ToolTip="Sinais" Margin="0,372,1005,383" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnSinais_Click"/>
-        <Button x:Name="BtnAlerts" IsEnabled="false"
+        <Button x:Name="BtnAlerts" IsEnabled="True"
             Content="{materialDesign:PackIcon Kind=Bell, Size=30}"
             ToolTip="Alertas" Margin="0,422,1005,333" Height="Auto" Background="Transparent" BorderBrush="Transparent" Click="BtnAlerts_Click"/>
         <Frame x:Name="MainWindowFrame" NavigationUIVisibility="Hidden" Margin="80,72,215,224" Height="500"/>

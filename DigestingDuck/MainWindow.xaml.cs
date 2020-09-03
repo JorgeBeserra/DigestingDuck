@@ -44,7 +44,6 @@ namespace DigestingDuck
 
         public DataTable tradersTopTbl = new DataTable();
         public DataTable tradersAlvosTbl = new DataTable();
-        readonly MediaPlayer Sound1 = new MediaPlayer();
 
         public IQueryable<Configuracao> configuracao;
         public Configuracao conf; // Configurações Gerais
@@ -259,7 +258,7 @@ namespace DigestingDuck
             {
                 var progress = new Progress<string>(s => GerarTexto(s));
                 // Falta criar as demais task....
-                Task.Run(() => new Subscribes(progress, IqClientApiDotNet).Run());
+                Task.Run(() => new Tasks.Subscribes(progress, IqClientApiDotNet).Run());
                 Console.ReadLine();
                 BtnIniciar.IsEnabled = false;
                 BtnParar.IsEnabled = true;
