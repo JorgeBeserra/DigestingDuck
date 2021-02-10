@@ -141,6 +141,7 @@ namespace DigestingDuck
                         Status = true,
                         Descricao = "USDJPY"
                     }; realm.Add(a); });
+
                 realm.Write(() => { var a = new Ativos(); a.Id = 7; a.Status = true; a.Descricao = "AUDCAD"; realm.Add(a); });
                 realm.Write(() => { var a = new Ativos(); a.Id = 8; a.Status = true; a.Descricao = "NZDUSD"; realm.Add(a); });
                 realm.Write(() => { var a = new Ativos(); a.Id = 10; a.Status = true; a.Descricao = "USDRUB"; realm.Add(a); });
