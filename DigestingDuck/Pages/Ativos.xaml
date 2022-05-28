@@ -1,0 +1,88 @@
+﻿<Page x:Name="PageAtivos" x:Class="DigestingDuck.Pages.Ativos"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigestingDuck.Pages"
+        mc:Ignorable="d"
+        Title="Ativos" Height="500" Width="790" Loaded="PageAtivos_Loaded">
+    <Grid Background="#FF252E42">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl HorizontalAlignment="Left" Height="373" Margin="10,56,0,0" VerticalAlignment="Top" Width="521">
+            <TabItem x:Name="ativosTabBinaria" Header="Binárias" Margin="-2,0,0,0">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="69*"/>
+                        <ColumnDefinition Width="285*"/>
+                        <ColumnDefinition Width="161*"/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid 
+                                    x:Name="datagridAtivosBinaria" 
+                                    HorizontalAlignment="Left" Height="262" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" Grid.ColumnSpan="3" SelectionMode="Single" 
+                                    EnableRowVirtualization="False" IsReadOnly="True" 
+                                    MouseDoubleClick="DatagridAtivosBinaria_MouseDoubleClick" 
+                                    CanUserAddRows="False" 
+                                    SelectionChanged="DatagridAtivosBinaria_SelectionChanged" 
+                                    AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                            <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                            <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                            <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Turbo" Margin="1,0,-5,0">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid 
+                                    x:Name="datagridAtivosTurbo" 
+                                    HorizontalAlignment="Left" Height="288" 
+                                    Margin="10,10,0,0" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="DatagridAtivosTurbo_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                            <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                            <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                            <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Digital" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="54" Margin="6,0,-6,0">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid 
+                                    x:Name="datagridAtivosDigital" 
+                                    HorizontalAlignment="Left" Height="309" 
+                                    Margin="10,10,0,-35" VerticalAlignment="Top" 
+                                    Width="495" CanUserAddRows="False" 
+                                    SelectionMode="Single" 
+                                    IsReadOnly="True"
+                                    MouseDoubleClick="DatagridAtivosDigital_MouseDoubleClick"
+                                    AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}" ClipboardContentBinding="{x:Null}" Header="Cód"/>
+                            <DataGridTextColumn Binding="{Binding Descricao}" ClipboardContentBinding="{x:Null}" Header="Descrição"/>
+                            <DataGridTextColumn Binding="{Binding Aberto}" ClipboardContentBinding="{x:Null}" Header="Aberto"/>
+                            <DataGridTextColumn Binding="{Binding Alvo}" ClipboardContentBinding="{x:Null}" Header="Alvo"/>
+                        </DataGrid.Columns>
+                        <DataGrid.ItemBindingGroup>
+                            <BindingGroup/>
+                        </DataGrid.ItemBindingGroup>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button x:Name="BtnAtivosAtualizar" Content="Atualizar" HorizontalAlignment="Left" Margin="442,10,0,0" VerticalAlignment="Top" Width="89" Height="41" Background="#FF373F52" BorderBrush="#FF373F52"/>
+    </Grid>
+</Page>

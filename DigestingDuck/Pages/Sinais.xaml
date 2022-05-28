@@ -1,0 +1,74 @@
+﻿<Page x:Name="PageSinais" x:Class="DigestingDuck.Pages.Sinais"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DigestingDuck.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="790"
+      Title="Sinais"
+      Loaded="PageSinais_Loaded">
+
+    <Grid Background="#FF20273A">
+        <DataGrid 
+            x:Name="datagridSinaisListas" 
+            HorizontalAlignment="Left" 
+            Height="150" Margin="10,11,0,0" 
+            VerticalAlignment="Top" Width="400" 
+            IsReadOnly="True" SelectionMode="Extended" 
+            CanUserResizeColumns="False" 
+            EnableColumnVirtualization="True" 
+            MouseDoubleClick="datagridSinaisListas_MouseDoubleClick" 
+            AutoGenerateColumns="False" CanUserAddRows="False" 
+            SelectionChanged="datagridSinaisListas_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Status" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding StatusImage}" Height="25"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Descrição" Binding="{Binding Descricao}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid 
+            x:Name="datagridSinaisSinais" 
+            HorizontalAlignment="Left" 
+            Height="189" Margin="10,191,0,0" 
+            VerticalAlignment="Top" Width="693" 
+            IsReadOnly="True" 
+            SelectionMode="Extended" 
+            CanUserResizeColumns="False" 
+            EnableColumnVirtualization="True" 
+            MouseDoubleClick="datagridSinaisSinais_MouseDoubleClick" 
+            AutoGenerateColumns="False" 
+            CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Alvo" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding StatusImage}" Height="25"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Ativo" Binding="{Binding Ativos[0].Descricao}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Direção" Binding="{Binding InstrumentDir}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Expiração" Binding="{Binding ExpirationType}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Horario Sinal" Binding="{Binding DataHora, StringFormat='dd/MM/yyyy HH:mm'}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="País" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding FlagImage}" Height="25"></Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Resultado" Binding="{Binding Resultado}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="435,13,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="BtnImportarCSV" Content="Importar CSV" HorizontalAlignment="Left" Margin="585,385,0,0" VerticalAlignment="Top" Click="BtnImportarCSV_Click"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="460,111,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+    </Grid>
+</Page>

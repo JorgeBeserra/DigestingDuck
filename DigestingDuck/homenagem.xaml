@@ -1,0 +1,14 @@
+﻿<Window x:Class="DigestingDuck.homenagem"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigestingDuck"
+        mc:Ignorable="d"
+        Title="De onde veio o nome!!!" Height="369.276" Width="800">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="313" Margin="-80,10,0,0" VerticalAlignment="Top" Width="572" Source="imagens/duck.jpg"/>
+        <TextBlock HorizontalAlignment="Left" Margin="394,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="351" Width="388"><Run Text="Digerindo o pato (1739)"/><LineBreak/><Run/><LineBreak/><Run Text="O Canard Digérateur, ou Digesting Duck, é bastante nojento. Construído por Jacques de Vaucanson em 1739, consumia grãos de grãos e parecia metabolizá-los e defecar. Reproduzir a digestão em um autômato seria de fato uma façanha espetacular. Mas o robô pato era apenas uma maquete do que Vaucanson esperava construir eventualmente. Ele coletava comida em um recipiente interno e fazia cocô de fezes pré-fabricadas."/><LineBreak/><Run/><LineBreak/><Run Text="Curiosamente, o pato teve uma enorme influência na cultura popular. Voltaire escreveu que &quot;sem ... o pato de Vaucanson, você não teria nada para lembrá-lo da glória da França&quot;. (&quot;Sans ... o canard de Vaucanson vous n'auriez rien qui fit ressouvenir do gloire da França.&quot;)"/><LineBreak/><Run/><LineBreak/><Run Text="O pato é mencionado no conto de Nathaniel Hawthorne &quot;O Artista da Bela&quot; e aparece com destaque em Mason &amp; Dixon, de Thomas Pynchon. Em 2006, o artista belga Wim Delvoye apresentou ao mundo sua &quot;Cloaca Machine&quot;, que realmente digere alimentos em excrementos."/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+
+    </Grid>
+</Window>
