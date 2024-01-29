@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bugsnag" Version="3.0.1" />
+    <PackageReference Include="Bugsnag" Version="3.1.0" />
     <PackageReference Include="Bugsnag.ConfigurationSection" Version="3.0.1" />
     <PackageReference Include="IqOptionApiDotNet" Version="2.0.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
