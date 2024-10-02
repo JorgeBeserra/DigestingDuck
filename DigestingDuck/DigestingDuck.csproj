@@ -22,7 +22,7 @@
     <PackageReference Include="Bugsnag" Version="3.1.0" />
     <PackageReference Include="Bugsnag.ConfigurationSection" Version="3.0.1" />
     <PackageReference Include="IqOptionApiDotNet" Version="2.0.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
