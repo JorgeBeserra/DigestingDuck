@@ -11,6 +11,13 @@ AppVersion={#AppVersion}
 DefaultDirName={localappdata}\Programs\DigestingDuck
 DefaultGroupName=DigestingDuck
 PrivilegesRequired=lowest
+#if RuntimeId == "win-arm64"
+ArchitecturesAllowed=arm64
+ArchitecturesInstallIn64BitMode=arm64
+#else
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
+#endif
 OutputDir=..\artifacts
 OutputBaseFilename=DigestingDuck-{#AppVersion}-{#RuntimeId}-setup
 Compression=lzma2

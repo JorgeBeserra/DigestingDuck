@@ -41,6 +41,10 @@ jobs:
         shell: bash
         run: |
           version=$(dotnet msbuild src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -getProperty:Version)
+          if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF_NAME" != "v$version" ]]; then
+            echo "::error::A tag deve corresponder à versão do aplicativo: v$version"
+            exit 1
+          fi
           echo "value=$version" >> "$GITHUB_OUTPUT"
       - name: Publicar aplicativo independente do runtime
         run: dotnet publish src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishTrimmed=false -o publish/${{ matrix.rid }}
@@ -92,5 +96,7 @@ jobs:
           TAG: ${{ github.ref_name }}
         shell: bash
         run: |
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes
+          flags=()
+          if [[ "$TAG" == *-* ]]; then flags+=(--prerelease); fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes "${flags[@]}"
           gh release upload "$TAG" artifacts/* --repo "$GITHUB_REPOSITORY"
