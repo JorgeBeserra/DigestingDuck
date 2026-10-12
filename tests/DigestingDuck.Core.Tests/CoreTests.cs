@@ -58,6 +58,20 @@ public class CoreTests
         Assert.That(fake.Calls, Is.EqualTo(1));
         Assert.That(engine.History.Count, Is.EqualTo(1));
     }
+    [Test]
+    public async Task PendingExposurePreventsExceedingStopLoss()
+    {
+        var fake = new FakeBroker();
+        await using var engine = new TradingEngine(fake);
+        await engine.StartAsync(new AppSettings { EntryAmount = 6, StopLoss = 10, TargetTraderIds = [7], WatchedAssetIds = [1861] }, BalanceType.Practice, true);
+        var deal = new LiveDeal { UserId = 7, PositionId = 123, CreatedAt = DateTimeOffset.UtcNow, ActiveId = (ActivePair)1861, AmountEnrolled = 10, ExpirationType = DigitalOptionsExpiryType.PT1M };
+        fake.Emit(deal);
+        deal.PositionId = 124;
+        fake.Emit(deal);
+        await engine.StopAsync();
+        Assert.That(fake.Calls, Is.EqualTo(1));
+        Assert.That(engine.CopyEnabled, Is.False);
+    }
     private sealed class FakeBroker : ITradingBroker
     {
         public bool IsConnected => true;

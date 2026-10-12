@@ -18,7 +18,7 @@ public static class UiBuilder
 public class DesktopTests
 {
     [AvaloniaTest]
-    public void AllPagesRenderAndEmptyCredentialsDoNotContactTheBroker()
+    public async Task AllPagesRenderAndEmptyCredentialsDoNotContactTheBroker()
     {
         var directory = Path.Combine(Path.GetTempPath(), "digestingduck-ui-"+Guid.NewGuid().ToString("N"));
         var window = new MainWindow(directory) { Width = 1180, Height = 790 };
@@ -39,8 +39,10 @@ public class DesktopTests
         login.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         Dispatcher.UIThread.RunJobs();
         Assert.That(window.GetVisualDescendants().OfType<TextBlock>().Any(x => x.Text == "Verifique o registro"), Is.True);
+        var closed = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        window.Closed += (_, _) => closed.TrySetResult();
         window.Close();
-        Dispatcher.UIThread.RunJobs();
+        await closed.Task.WaitAsync(TimeSpan.FromSeconds(5));
         if (Directory.Exists(directory)) Directory.Delete(directory,true);
     }
 }
