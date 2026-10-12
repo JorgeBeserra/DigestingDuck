@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigestingDuck", "DigestingDuck\DigestingDuck.csproj", "{127BF166-2688-4AB7-AA13-D7D3980BC209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{127BF166-2688-4AB7-AA13-D7D3980BC209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{127BF166-2688-4AB7-AA13-D7D3980BC209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{127BF166-2688-4AB7-AA13-D7D3980BC209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{127BF166-2688-4AB7-AA13-D7D3980BC209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE8E05E1-49B5-44A0-99E4-767C329C3ADF}
+	EndGlobalSection
+EndGlobal
