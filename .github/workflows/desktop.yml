@@ -9,6 +9,24 @@ on:
 permissions:
   contents: read
 jobs:
+  legacy-export:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - run: dotnet build tools/DigestingDuck.LegacyExport -c Release
+      - name: Test legacy database export
+        shell: pwsh
+        run: |
+          $env:LEGACY_EXPORT_DLL = "$pwd/tools/DigestingDuck.LegacyExport/bin/Release/net9.0/DigestingDuck.LegacyExport.dll"
+          dotnet test tests/DigestingDuck.LegacyExport.Tests -c Release
+      - run: dotnet publish tools/DigestingDuck.LegacyExport -c Release -r win-x64 --self-contained true -o legacy-export
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DigestingDuck-LegacyExport-win-x64
+          path: legacy-export/
   desktop:
     strategy:
       fail-fast: false

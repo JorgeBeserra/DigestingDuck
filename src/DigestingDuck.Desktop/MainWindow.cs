@@ -168,7 +168,28 @@ public sealed class MainWindow : Window
     private Control Management() => Stack(Heading("Limites da sessão"), Field("Valor de cada entrada", amount), Field("Stop win", stopWin), Field("Stop loss", stopLoss),
         Field("Atraso máximo do sinal (segundos)", delay), Field("Valor mínimo da entrada do trader", minimum),
         new TextBlock { Text = "O stop loss considera o valor das ordens ainda abertas. As configurações são aplicadas ao iniciar uma nova sessão.", TextWrapping = TextWrapping.Wrap },
-        Button("Salvar gerenciamento", SaveSettings));
+        Button("Salvar gerenciamento", SaveSettings),
+        new TextBlock { Text = "A importação transfere email, traders e ativos. Revise entrada e limites; regras antigas ficam em um arquivo para consulta. Histórico e sinais não são importados.", TextWrapping = TextWrapping.Wrap },
+        Button("Importar configuração antiga (JSON)", async () =>
+        {
+            if (!loaded || engine.IsRunning) throw new InvalidOperationException("Carregue os dados e pare a sessão antes de importar.");
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { AllowMultiple = false,
+                FileTypeFilter = new[] { new FilePickerFileType("Exportação legada") { Patterns = new[] { "*.json" } } } });
+            if (files.Count == 0) return;
+            await using var stream = await files[0].OpenReadAsync();
+            using var reader = new StreamReader(stream);
+            var bundle = LegacySettingsBundle.Read(await reader.ReadToEndAsync());
+            var directory = store.DirectoryPath;
+            Directory.CreateDirectory(directory);
+            var backup = Path.Combine(directory, "migration-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(backup);
+            await File.WriteAllTextAsync(Path.Combine(backup, "settings-before.json"), System.Text.Json.JsonSerializer.Serialize(settings));
+            await File.WriteAllTextAsync(Path.Combine(backup, "legacy-rules.json"), System.Text.Json.JsonSerializer.Serialize(bundle.LegacyRules));
+            var imported = settings with { Email = bundle.Settings.Email, TargetTraderIds = bundle.Settings.TargetTraderIds, WatchedAssetIds = bundle.Settings.WatchedAssetIds };
+            await store.SaveAsync(imported);
+            settings = imported; ApplySettings();
+            Log("Importação concluída. Revise os limites. Backup: " + backup);
+        }));
     private Control TradersPage() => Stack(Heading("Traders acompanhados"),
         Button("Consultar ranking Brasil", async () =>
         {

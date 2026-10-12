@@ -77,3 +77,13 @@ seis runtime identifiers. Artefatos ficam disponíveis em cada execução. Tags
 prévia enquanto a integração real e a migração de dados não estiverem validadas.
 
 Licença [MIT](LICENSE). Cliente não oficial, sem vínculo com a IQ Option.
+
+### Importar configurações do aplicativo antigo
+
+Feche o aplicativo antigo. Com .NET 9 instalado, execute no checkout:
+
+```sh
+dotnet run --project tools/DigestingDuck.LegacyExport -- caminho/DigestingDuck.realm configuracao-legada.json
+```
+
+O exportador abre uma cópia temporária do banco; não altera o original e não exporta senhas ou serial. Se houver vários usuários, acrescente o ID desejado como terceiro argumento. Na aba **Gerenciamento**, escolha **Importar configuração antiga (JSON)** com a sessão parada. Email, traders alvo e ativos são transferidos; a configuração anterior e as regras antigas ficam em uma pasta `migration-*` no diretório de dados. Valores e limites atuais são mantidos para revisão. Soros, Martingale e outras regras antigas não são ativados automaticamente. Histórico, saldos e sinais continuam no banco original. A compatibilidade de um banco real ainda precisa ser validada; o exportador depende dos sistemas suportados pelo Realm 20, sem adicionar essa dependência ao aplicativo desktop.
