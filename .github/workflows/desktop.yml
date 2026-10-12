@@ -1,0 +1,120 @@
+name: Desktop multiplataforma
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  legacy-export:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      - run: dotnet build tools/DigestingDuck.LegacyExport -c Release
+      - name: Test legacy database export
+        shell: pwsh
+        run: |
+          $env:LEGACY_EXPORT_DLL = "$pwd/tools/DigestingDuck.LegacyExport/bin/Release/net9.0/DigestingDuck.LegacyExport.dll"
+          dotnet test tests/DigestingDuck.LegacyExport.Tests -c Release
+      - run: dotnet publish tools/DigestingDuck.LegacyExport -c Release -r win-x64 --self-contained true -o legacy-export
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DigestingDuck-LegacyExport-win-x64
+          path: legacy-export/
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            rid: win-x64
+          - os: windows-latest
+            rid: win-arm64
+          - os: ubuntu-latest
+            rid: linux-x64
+          - os: ubuntu-latest
+            rid: linux-arm64
+          - os: macos-15
+            rid: osx-x64
+          - os: macos-15
+            rid: osx-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Testes do núcleo
+        run: dotnet test tests/DigestingDuck.Core.Tests/DigestingDuck.Core.Tests.csproj -c Release
+      - name: Testes da interface sem display
+        run: dotnet test tests/DigestingDuck.Desktop.Tests/DigestingDuck.Desktop.Tests.csproj -c Release
+      - name: Versão
+        id: version
+        shell: bash
+        run: |
+          version=$(dotnet msbuild src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -getProperty:Version)
+          if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF_NAME" != "v$version" ]]; then
+            echo "::error::A tag deve corresponder à versão do aplicativo: v$version"
+            exit 1
+          fi
+          echo "value=$version" >> "$GITHUB_OUTPUT"
+      - name: Publicar aplicativo independente do runtime
+        run: dotnet publish src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishTrimmed=false -o publish/${{ matrix.rid }}
+      - name: Preparar Inno Setup
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: choco install innosetup --yes --no-progress
+      - name: Instalador Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+          RID: ${{ matrix.rid }}
+        run: |
+          $compiler = Get-ChildItem "${env:ProgramFiles(x86)}\Inno Setup*\ISCC.exe" | Select-Object -First 1
+          if (-not $compiler) { throw "Inno Setup compiler not found" }
+          & $compiler.FullName "/DAppVersion=$env:VERSION" "/DRuntimeId=$env:RID" packaging/windows.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Pacote macOS ou Linux
+        if: runner.os != 'Windows'
+        shell: bash
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+          RID: ${{ matrix.rid }}
+        run: bash packaging/package-unix.sh "$RID" "$VERSION" "publish/$RID" artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DigestingDuck-${{ matrix.rid }}
+          path: |
+            artifacts/*.exe
+            artifacts/*.dmg
+            artifacts/*.deb
+            artifacts/*.tar.gz
+          if-no-files-found: error
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: desktop
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: Publicar instaladores na release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          flags=()
+          if [[ "$TAG" == *-* ]]; then flags+=(--prerelease); fi
+          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes "${flags[@]}"
+          gh release upload "$TAG" artifacts/* --repo "$GITHUB_REPOSITORY"
