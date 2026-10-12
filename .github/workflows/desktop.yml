@@ -8,7 +8,27 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      value: ${{ steps.check.outputs.version }}
+      release: ${{ steps.check.outputs.release }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Detectar mudança de versão
+        id: check
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          python3 -m unittest discover -s packaging -p 'test_release_version.py'
+          python3 packaging/release_version.py
   legacy-export:
     runs-on: windows-latest
     steps:
@@ -28,6 +48,7 @@ jobs:
           name: DigestingDuck-LegacyExport-win-x64
           path: legacy-export/
   desktop:
+    needs: version
     strategy:
       fail-fast: false
       matrix:
@@ -54,16 +75,6 @@ jobs:
         run: dotnet test tests/DigestingDuck.Core.Tests/DigestingDuck.Core.Tests.csproj -c Release
       - name: Testes da interface sem display
         run: dotnet test tests/DigestingDuck.Desktop.Tests/DigestingDuck.Desktop.Tests.csproj -c Release
-      - name: Versão
-        id: version
-        shell: bash
-        run: |
-          version=$(dotnet msbuild src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -getProperty:Version)
-          if [[ "$GITHUB_REF" == refs/tags/* && "$GITHUB_REF_NAME" != "v$version" ]]; then
-            echo "::error::A tag deve corresponder à versão do aplicativo: v$version"
-            exit 1
-          fi
-          echo "value=$version" >> "$GITHUB_OUTPUT"
       - name: Publicar aplicativo independente do runtime
         run: dotnet publish src/DigestingDuck.Desktop/DigestingDuck.Desktop.csproj -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishTrimmed=false -o publish/${{ matrix.rid }}
       - name: Preparar Inno Setup
@@ -74,7 +85,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         env:
-          VERSION: ${{ steps.version.outputs.value }}
+          VERSION: ${{ needs.version.outputs.value }}
           RID: ${{ matrix.rid }}
         run: |
           $compiler = Get-ChildItem "${env:ProgramFiles(x86)}\Inno Setup*\ISCC.exe" | Select-Object -First 1
@@ -85,7 +96,7 @@ jobs:
         if: runner.os != 'Windows'
         shell: bash
         env:
-          VERSION: ${{ steps.version.outputs.value }}
+          VERSION: ${{ needs.version.outputs.value }}
           RID: ${{ matrix.rid }}
         run: bash packaging/package-unix.sh "$RID" "$VERSION" "publish/$RID" artifacts
       - uses: actions/upload-artifact@v4
@@ -98,23 +109,50 @@ jobs:
             artifacts/*.tar.gz
           if-no-files-found: error
   release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: desktop
+    if: needs.version.outputs.release == 'true'
+    needs: [version, desktop, legacy-export]
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/download-artifact@v4
         with:
+          pattern: DigestingDuck-*
           path: artifacts
-          merge-multiple: true
-      - name: Publicar instaladores na release
+          merge-multiple: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: DigestingDuck-LegacyExport-win-x64
+          path: legacy-export
+      - name: Reunir instaladores
+        run: |
+          find artifacts -mindepth 2 -type f ! -path 'artifacts/DigestingDuck-LegacyExport-*/*' \( -name '*.exe' -o -name '*.dmg' -o -name '*.deb' -o -name '*.tar.gz' \) -exec mv {} artifacts/ \;
+          find artifacts -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
+      - name: Compactar exportador legado
+        run: |
+          cd legacy-export
+          zip -r "../artifacts/DigestingDuck-LegacyExport-win-x64.zip" .
+      - name: Publicar tag e release com artefatos
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.version.outputs.value }}
         shell: bash
         run: |
+          tag="v$VERSION"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            target=$(git rev-list -n 1 "$tag")
+            if [[ "$target" != "$GITHUB_SHA" ]]; then
+              echo "::error::A tag $tag já aponta para outro commit. Aumente a versão ou reexecute a execução original."
+              exit 1
+            fi
+          fi
           flags=()
-          if [[ "$TAG" == *-* ]]; then flags+=(--prerelease); fi
-          gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --title "$TAG" --generate-notes "${flags[@]}"
-          gh release upload "$TAG" artifacts/* --repo "$GITHUB_REPOSITORY"
+          if [[ "$VERSION" == *-* ]]; then flags+=(--prerelease); fi
+          if ! gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --title "$tag" --generate-notes --draft "${flags[@]}"
+          fi
+          gh release upload "$tag" artifacts/* --repo "$GITHUB_REPOSITORY" --clobber
+          gh release edit "$tag" --repo "$GITHUB_REPOSITORY" --draft=false "${flags[@]}"
