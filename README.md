@@ -31,7 +31,7 @@ mas não faz parte do novo build. Seu workflow foi deixado como execução manua
 ## O que está implementado
 
 - Conexão e encerramento de sessão na corretora.
-- Consulta de saldos, velas, ranking de traders e alertas de preço.
+- Consulta de saldos, gráfico de velas, ranking de traders e alertas de preço.
 - Monitoramento de operações digitais e cópia de traders selecionados.
 - Importação de sinais CSV com seletor de arquivo nativo e fuso horário explícito.
 - Limites por sessão e controle de exposição das ordens ainda abertas.
@@ -71,7 +71,7 @@ As páginas antigas de Chat, Portfólio e Alertas eram parcialmente vazias.
 dotnet test tests/DigestingDuck.Core.Tests/DigestingDuck.Core.Tests.csproj
 ```
 
-O Actions testa o núcleo e publica os pacotes em Windows, Ubuntu e macOS, para
+O Actions testa o núcleo, renderiza as oito telas sem display e publica os pacotes em Windows, Ubuntu e macOS, para
 seis runtime identifiers. Artefatos ficam disponíveis em cada execução. Tags
 `v*` publicam os instaladores na GitHub Release correspondente; use tags de
 prévia enquanto a integração real e a migração de dados não estiverem validadas.

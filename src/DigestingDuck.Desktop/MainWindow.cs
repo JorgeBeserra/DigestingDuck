@@ -15,7 +15,7 @@ public sealed class MainWindow : Window
 {
     private readonly BrokerSession broker = new();
     private readonly TradingEngine engine;
-    private readonly SettingsStore store = new();
+    private readonly SettingsStore store;
     private readonly JournalStore journal;
     private bool loaded;
     private AppSettings settings = new();
@@ -41,12 +41,14 @@ public sealed class MainWindow : Window
     private readonly ListBox traderList = new();
     private readonly ListBox alertList = new();
     private readonly TextBox logs = new() { IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap, MinHeight = 180 };
+    private readonly CandleChart chart = new() { Height = 280, HorizontalAlignment = HorizontalAlignment.Stretch };
     private readonly TextBox candles = new() { IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap, MinHeight = 200 };
     private readonly Queue<string> recentDeals = new();
     private readonly Queue<string> recentLogs = new();
     private bool closing;
-    public MainWindow()
+    public MainWindow(string? dataDirectory = null)
     {
+        store = new(dataDirectory);
         engine = new(broker);
         journal = new(store.DirectoryPath);
         Title = "DigestingDuck";
@@ -72,7 +74,7 @@ public sealed class MainWindow : Window
             deals.ItemsSource = recentDeals.Reverse().ToArray();
         });
         broker.BalanceChanged += _ => Dispatcher.UIThread.Post(UpdateBalances);
-        Opened += async (_, _) => await Run(async () => { settings = await store.LoadAsync(); engine.Restore(await journal.LoadAsync()); loaded = true; ApplySettings(); UpdatePortfolio(); Log($"Dados locais: {store.DirectoryPath}"); });
+        Opened += async (_, _) => await Run(async () => { settings = await store.LoadAsync(); engine.Restore(await journal.LoadAsync()); loaded = true; ApplySettings(); UpdatePortfolio(); Log("Configuração local carregada."); });
         Closing += async (_, e) =>
         {
             if (closing) return;
@@ -88,7 +90,12 @@ public sealed class MainWindow : Window
         foreach (var c in children) p.Children.Add(c);
         return p;
     }
-    private static Control Field(string label, Control control) => Stack(new TextBlock { Text = label, Foreground = Brushes.LightGray }, control);
+    private static Control Field(string label, Control control)
+    {
+        var field = Stack(new TextBlock { Text = label, Foreground = Brushes.LightGray }, control);
+        field.MaxWidth = 560; field.HorizontalAlignment = HorizontalAlignment.Left; field.Width = 560;
+        return field;
+    }
     private static TextBlock Heading(string text) => new() { Text = text, FontSize = 24, FontWeight = FontWeight.SemiBold };
     private Button Button(string label, Func<Task> action)
     {
@@ -107,10 +114,32 @@ public sealed class MainWindow : Window
         while (recentLogs.Count > 250) recentLogs.Dequeue();
         logs.Text = string.Join(Environment.NewLine, recentLogs.Reverse());
     });
-    private Control Dashboard() => Stack(Heading("Sua estação de acompanhamento"), identity, balances, profit,
-        new TextBlock { Text = "Escolha os ativos e traders, configure os limites e acompanhe a sessão.", TextWrapping = TextWrapping.Wrap },
-        Button("Atualizar saldos", async () => { await broker.RefreshBalancesAsync(); UpdateBalances(); }),
-        Button("Iniciar monitoramento", Start), Button("Parar", () => engine.StopAsync()), Heading("Registro da sessão"), logs);
+    private static Border Card(string label, Control value) => new()
+    {
+        Background = new SolidColorBrush(Color.Parse("#1C2332")), CornerRadius = new(12), Padding = new(20),
+        Child = Stack(new TextBlock { Text = label, FontSize = 12, Foreground = new SolidColorBrush(Color.Parse("#98A5BC")) }, value)
+    };
+    private Control Dashboard()
+    {
+        identity.FontSize = 18;
+        balances.FontSize = 18; balances.TextWrapping = TextWrapping.Wrap;
+        profit.FontSize = 18; profit.Foreground = new SolidColorBrush(Color.Parse("#9BE6BD"));
+        var metrics = new Grid { ColumnDefinitions = new("*,*,*"), ColumnSpacing = 16, Margin = new(0,16) };
+        var accountCard = Card("CORRETORA", identity);
+        var balanceCard = Card("SALDOS", balances);
+        var profitCard = Card("RESULTADO DA SESSÃO", profit);
+        metrics.Children.Add(accountCard); Grid.SetColumn(balanceCard,1); metrics.Children.Add(balanceCard); Grid.SetColumn(profitCard,2); metrics.Children.Add(profitCard);
+        var start = Button("Iniciar monitoramento", Start);
+        start.Background = new SolidColorBrush(Color.Parse("#F4B544")); start.Foreground = new SolidColorBrush(Color.Parse("#141821"));
+        var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12 };
+        actions.Children.Add(start); actions.Children.Add(Button("Parar", () => engine.StopAsync()));
+        actions.Children.Add(Button("Atualizar saldos", async () => { await broker.RefreshBalancesAsync(); UpdateBalances(); }));
+        return Stack(Heading("Visão geral"),
+            new TextBlock { Text = "Sua corretora, seus sinais e suas operações em um só lugar.", Foreground = Brushes.LightGray },
+            metrics, actions,
+            new TextBlock { Text = "Comece conectando sua conta na aba Corretora. Ordens só são enviadas quando você habilita e confirma a execução.", TextWrapping = TextWrapping.Wrap, Margin = new(0,8) },
+            Card("ATIVIDADE", logs));
+    }
     private Control BrokerPage() => Stack(Heading("Conectar à IQ Option"),
         new TextBlock { Text = "A senha fica somente em memória durante a sessão.", TextWrapping = TextWrapping.Wrap },
         Field("E-mail", email), Field("Senha", password), Field("Conta para novas operações", environment), enableOrders,
@@ -125,7 +154,14 @@ public sealed class MainWindow : Window
         }), Button("Desconectar", async () => { await engine.StopAsync(); broker.Disconnect(); identity.Text = "Desconectado"; balances.Text = "Saldo indisponível"; }));
     private void UpdateBalances() => balances.Text = string.Join("  •  ", broker.Balances.Select(x => $"{(x.Type == BalanceType.Practice ? "Treinamento" : "Real")}: {x.Amount:N2} {x.Currency}"));
     private Control AssetPage() => Stack(Heading("Ativos e cotações"), Field("Ativo para consultar", assetPicker),
-        Button("Consultar últimas 60 velas", async () => candles.Text = Newtonsoft.Json.JsonConvert.SerializeObject(await broker.GetCandlesAsync((ActivePair)assetPicker.SelectedItem!), Newtonsoft.Json.Formatting.Indented)), candles,
+        Button("Consultar últimas 60 velas", async () =>
+        {
+            var result = await broker.GetCandlesAsync((ActivePair)assetPicker.SelectedItem!);
+            var data = result.Infos ?? [];
+            chart.SetCandles(data);
+            candles.Text = "Hora             Abertura     Máxima       Mínima       Fechamento" + Environment.NewLine +
+                string.Join(Environment.NewLine, data.OrderByDescending(x => x.From).Select(x => $"{x.From.LocalDateTime:HH:mm:ss}         {x.Open:N5}     {x.Max:N5}     {x.Min:N5}     {x.Close:N5}"));
+        }), chart, candles,
         Field("IDs dos ativos monitorados, separados por vírgula", assetIds),
         new TextBlock { Text = "O catálogo da biblioteca não garante que um ativo esteja aberto. Confira a disponibilidade na corretora.", TextWrapping = TextWrapping.Wrap },
         Button("Salvar ativos", SaveSettings));

@@ -34,6 +34,8 @@ jobs:
           dotnet-version: 9.0.x
       - name: Testes do núcleo
         run: dotnet test tests/DigestingDuck.Core.Tests/DigestingDuck.Core.Tests.csproj -c Release
+      - name: Testes da interface sem display
+        run: dotnet test tests/DigestingDuck.Desktop.Tests/DigestingDuck.Desktop.Tests.csproj -c Release
       - name: Versão
         id: version
         shell: bash
