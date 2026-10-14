@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net9.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><Version>2.0.0-preview.1</Version><ApplicationIcon>../../DigestingDuck/icon.ico</ApplicationIcon></PropertyGroup>
-  <ItemGroup><PackageReference Include="Avalonia" Version="12.1.4" /><PackageReference Include="Avalonia.Desktop" Version="12.1.4" /><PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" /><ProjectReference Include="../DigestingDuck.Core/DigestingDuck.Core.csproj" /></ItemGroup>
+  <ItemGroup><PackageReference Include="Avalonia" Version="12.1.4" /><PackageReference Include="Avalonia.Desktop" Version="12.1.4" /><PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+<PackageReference Include="NUnit" Version="4.6.1" /><ProjectReference Include="../DigestingDuck.Core/DigestingDuck.Core.csproj" /></ItemGroup>
 </Project>
